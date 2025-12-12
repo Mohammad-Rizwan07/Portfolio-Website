@@ -16,7 +16,8 @@ async function seed() {
   console.log("🌱 Seeding Pinecone...");
 
   // CHANGE 1: Use the newer model
-  const model = genAI.getGenerativeModel({ model: "text-embedding-004" });
+  const model = genAI.getGenerativeModel({ model: "text-embedding-004" }); 
+
   
   const index = pc.index(process.env.PINECONE_INDEX_NAME!);
 
