@@ -30,8 +30,8 @@ export async function POST(req: NextRequest) {
       .map((match) => match.metadata?.text)
       .join("\n\n---\n\n");
 
-    // 4. Send to Gemini (using the newer, working model)
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-pro" });
+    // 4. Send to Gemini (using the stable flash model)
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
     
     const prompt = `
       You are a CLI / Terminal Assistant for a developer's portfolio.
@@ -50,9 +50,10 @@ export async function POST(req: NextRequest) {
     `;
 
     const result = await model.generateContent(prompt);
-    const response = await result.response;
+    const response = result.response;
+    const text = response.text();
     
-    return NextResponse.json({ response: response.text() });
+    return NextResponse.json({ response: text });
 
   } catch (error) {
     console.error("API Error:", error);
